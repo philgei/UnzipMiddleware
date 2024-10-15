@@ -1,6 +1,6 @@
 # UnzipMiddleware
 
-UnzipMiddleware is a .NET class library that provides middleware for serving files from ZIP archives in ASP.NET Core applications. This README is provided for context to understand the usage and configuration of the middleware.
+UnzipMiddleware is a .NET class library that provides middleware for serving files from ZIP archives in ASP.NET Core applications.
 
 ## Features
 
@@ -84,5 +84,3 @@ For example, with the default configuration, a request for `/content.h5p/images/
 - .NET (version may vary depending on the project configuration)
 - System.IO.Abstractions
 - MimeKit (for MIME type detection)
-
-This class library provides a flexible solution for serving content from ZIP archives in ASP.NET Core applications, particularly useful for scenarios involving packaged content like H5P files. Its use of `System.IO.Abstractions` enhances testability and allows for custom filesystem implementations.
