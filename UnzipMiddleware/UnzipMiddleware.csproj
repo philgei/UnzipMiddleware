@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <PackageId>philgei.UnzipMiddleware</PackageId>
-        <Version>1.0.1</Version>
+        <Version>1.1.0</Version>
         <Title>Unzip middleware for ASP.NET</Title>
         <Description>A middleware to serve files from ZIP archives in ASP.NET Core applications.</Description>
         <PackageTags>ASP.NET Core; Middleware; ZIP; Compression</PackageTags>
