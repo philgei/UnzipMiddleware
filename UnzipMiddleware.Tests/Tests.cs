@@ -12,9 +12,9 @@ public class ZipFileMiddlewareTests
     {
         // Arrange
         var fileSystem = new MockFileSystem();
-        var zipFilePath = @"wwwroot\archive.zip";
-        var entryName = "test.txt";
-        var entryContent = "Hello, World!";
+        const string zipFilePath = @"wwwroot\archive.zip";
+        const string entryName = "test.txt";
+        const string entryContent = "Hello, World!";
 
         // Create a mock ZIP file
         using (var memoryStream = new MemoryStream())
@@ -22,10 +22,10 @@ public class ZipFileMiddlewareTests
             using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
             {
                 var entry = zip.CreateEntry(entryName);
-                using (var entryStream = entry.Open())
-                using (var streamWriter = new StreamWriter(entryStream))
+                await using (var entryStream = entry.Open())
+                await using (var streamWriter = new StreamWriter(entryStream))
                 {
-                    streamWriter.Write(entryContent);
+                    await streamWriter.WriteAsync(entryContent);
                 }
             }
             memoryStream.Seek(0, SeekOrigin.Begin);
@@ -38,9 +38,17 @@ public class ZipFileMiddlewareTests
             RootPath = "wwwroot"
         };
 
-        var context = new DefaultHttpContext();
-        context.Request.Path = "/archive.zip/test.txt";
-        context.Response.Body = new MemoryStream();
+        var context = new DefaultHttpContext
+        {
+            Request =
+            {
+                Path = "/archive.zip/test.txt"
+            },
+            Response =
+            {
+                Body = new MemoryStream()
+            }
+        };
 
         var middleware = new ZipFileMiddleware(next: (innerContext) => Task.CompletedTask, fileSystem, options);
 
@@ -62,7 +70,7 @@ public class ZipFileMiddlewareTests
     {
         // Arrange
         var fileSystem = new MockFileSystem();
-        var zipFilePath = @"wwwroot\archive.zip";
+        const string zipFilePath = @"wwwroot\archive.zip";
 
         // Create a mock ZIP file with no entries
         using (var memoryStream = new MemoryStream())
@@ -81,9 +89,17 @@ public class ZipFileMiddlewareTests
             RootPath = "wwwroot"
         };
 
-        var context = new DefaultHttpContext();
-        context.Request.Path = "/archive.zip/nonexistent.txt";
-        context.Response.Body = new MemoryStream();
+        var context = new DefaultHttpContext
+        {
+            Request =
+            {
+                Path = "/archive.zip/nonexistent.txt"
+            },
+            Response =
+            {
+                Body = new MemoryStream()
+            }
+        };
 
         var middleware = new ZipFileMiddleware(next: (innerContext) => Task.CompletedTask, fileSystem, options);
 
@@ -105,9 +121,17 @@ public class ZipFileMiddlewareTests
             RootPath = "wwwroot"
         };
 
-        var context = new DefaultHttpContext();
-        context.Request.Path = "/nonexistent.zip/test.txt";
-        context.Response.Body = new MemoryStream();
+        var context = new DefaultHttpContext
+        {
+            Request =
+            {
+                Path = "/nonexistent.zip/test.txt"
+            },
+            Response =
+            {
+                Body = new MemoryStream()
+            }
+        };
 
         var middleware = new ZipFileMiddleware(next: (innerContext) => Task.CompletedTask, fileSystem, options);
 
