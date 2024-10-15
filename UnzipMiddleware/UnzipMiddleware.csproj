@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <PackageId>philgei.UnzipMiddleware</PackageId>
+        <Version>1.0.1</Version>
+        <Title>Unzip middleware for ASP.NET</Title>
+        <Description>A middleware to serve files from ZIP archives in ASP.NET Core applications.</Description>
+        <PackageTags>ASP.NET Core; Middleware; ZIP; Compression</PackageTags>
+        <Authors>Philipp Geirhos</Authors>
+        <IsPackable>true</IsPackable>
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+        <PackageReference Include="MimeKit" Version="4.8.0" />
+        <PackageReference Include="System.IO.Abstractions" Version="21.0.29" />
+        <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="21.0.29" />
+        <PackageReference Include="xunit" Version="2.9.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\Readme.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+</Project>
